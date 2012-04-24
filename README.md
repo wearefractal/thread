@@ -62,7 +62,7 @@ pool.run task, "Mike", (msg) ->
 
 ## Examples
 
-You can view more examples in the [example folder.](https://github.com/wearefractal/threadtree/master/examples)
+You can view more examples in the [example folder.](https://github.com/wearefractal/thread/tree/master/examples)
 
 ## LICENSE
 
