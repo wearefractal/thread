@@ -1,14 +1,14 @@
-![status](https://secure.travis-ci.org/wearefractal/APPNAME.png?branch=master)
+![status](https://secure.travis-ci.org/wearefractal/thread.png?branch=master)
 
 ## Information
 
 <table>
 <tr> 
-<td>Package</td><td>APPNAME</td>
+<td>Package</td><td>thread</td>
 </tr>
 <tr>
 <td>Description</td>
-<td>NOTHING HERE YET</td>
+<td>Threads for node</td>
 </tr>
 <tr>
 <td>Node Version</td>
@@ -18,13 +18,51 @@
 
 ## Usage
 
+## Thread
 ```coffee-script
-NOTHING HERE YET
+{Thread} = require 'thread'
+
+# Think of a new Thread like a task
+# You give it a function to run - you can pass any args to this
+# The last argument is always a callback for when the task is done
+t = new Thread (name, cb) ->
+  cb "Hey #{name}!"
+
+# When you run a task it will open it in a new process
+# You can pass any arguments to a task 
+# The last param to .run is the callback for when the Thread says it is finished
+t.run "Tony", (msg) ->
+  console.log msg
+
+# Calling .run multiple times will still run everything asynchronously
+t.run "Mike", (msg) ->
+  console.log msg
+```
+
+## ThreadPool
+
+Thread is cool but it takes a while to start up (30ms per Thread - blame node!). ThreadPool will create these threads when your application starts and let them wait for commands. Give ThreadPool a function and some arguments and it will run on one of your Threads instantly.
+
+```coffee-script
+{ThreadPool} = require 'thread'
+
+# 4 is the number of threads in the pool
+# This defaults to the number of CPU cores you have
+pool = new ThreadPool 4
+
+task = (name, cb) -> 
+  cb "Hey #{name}!"
+
+pool.run task, "Tony", (msg) ->
+  console.log msg
+
+pool.run task, "Mike", (msg) ->
+  console.log msg
 ```
 
 ## Examples
 
-You can view more examples in the [example folder.](https://github.com/wearefractal/APPNAME/tree/master/examples)
+You can view more examples in the [example folder.](https://github.com/wearefractal/threadtree/master/examples)
 
 ## LICENSE
 
