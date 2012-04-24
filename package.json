@@ -1,7 +1,7 @@
 {
    "name":"thread",
    "description":"Threads for node",
-   "version":"0.0.1",
+   "version":"0.0.2",
    "homepage":"http://github.com/wearefractal/thread",
    "repository":"git://github.com/wearefractal/thread.git",
    "author":"Fractal <contact@wearefractal.com> (http://wearefractal.com/)",

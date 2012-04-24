@@ -6,14 +6,14 @@ runner = (task, args, cb) ->
 
 class ThreadPool
   threads: []
-  next = 0
+  next: 0
 
   constructor: (@count=os.cpus().length) ->
     throw 'count must be > 0' unless @count > 0
-    @threads.push new Thread runner for num in [0...@count]
+    @threads = (new Thread runner for i in [0...@count])
 
   run: (task, args..., cb) ->
-    @threads[next].run task, args, cb
-    next = if next is @threads.length then 0 else ++next
+    @threads[@next].run task, args, cb
+    @next = if @next is @count-1 then 0 else ++@next
 
 module.exports = ThreadPool

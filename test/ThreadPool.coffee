@@ -34,18 +34,19 @@ describe 'ThreadPool', ->
     ###
     it 'should work with multiple simple tasks', (done) ->
       c = 0
-      comp = -> done() if ++c is 2
+      comp = -> done() if ++c is 10
 
       task = (name, male, cb) ->
         cb "#{name} is#{if male then '' else ' not'} a male"
       pool = new ThreadPool
 
-      pool.run task, "John", true, (res) ->
-        should.exist res
-        res.should.equal "John is a male"
-        comp()
+      for i in [0...10]
+        pool.run task, "John", true, (res) ->
+          should.exist res
+          res.should.equal "John is a male"
+          comp()
 
-      pool.run task, "Mary", false, (res) ->
-        should.exist res
-        res.should.equal "Mary is not a male"
-        comp()
+        pool.run task, "Mary", false, (res) ->
+          should.exist res
+          res.should.equal "Mary is not a male"
+          comp()
