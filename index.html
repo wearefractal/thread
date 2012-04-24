@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Thread by wearefractal</title>
+    
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Thread</h1>
+        <p>Threading for node</p>
+        <p class="view"><a href="https://github.com/wearefractal/thread">View the Project on GitHub <small>wearefractal/thread</small></a></p>
+        <ul>
+          <li><a href="https://github.com/wearefractal/thread/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/wearefractal/thread/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/wearefractal/thread">Fork On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p><img src="https://secure.travis-ci.org/wearefractal/thread.png?branch=master" alt="status"></p>
+
+<h2>Information</h2>
+
+<table>
+<tr>
+<td>Package</td>
+<td>thread</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>Threads for node</td>
+</tr>
+<tr>
+<td>Node Version</td>
+<td>&gt;= 0.4</td>
+</tr>
+</table><h2>Usage</h2>
+
+<h2>Thread</h2>
+
+<div class="highlight">
+<pre><span class="p">{</span><span class="nx">Thread</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">'thread'</span>
+
+<span class="c1"># Think of a new Thread like a task</span>
+<span class="c1"># You give it a function to run - you can pass any args to this</span>
+<span class="c1"># The last argument is always a callback for when the task is done</span>
+<span class="nv">t = </span><span class="k">new</span> <span class="nx">Thread</span> <span class="nf">(name, cb) -&gt;</span>
+  <span class="nx">cb</span> <span class="s">"Hey </span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">!"</span>
+
+<span class="c1"># When you run a task it will open it in a new process</span>
+<span class="c1"># You can pass any arguments to a task </span>
+<span class="c1"># The last param to .run is the callback for when the Thread says it is finished</span>
+<span class="nx">t</span><span class="p">.</span><span class="nx">run</span> <span class="s">"Tony"</span><span class="p">,</span> <span class="nf">(msg) -&gt;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">msg</span>
+
+<span class="c1"># Calling .run multiple times will still run everything asynchronously</span>
+<span class="nx">t</span><span class="p">.</span><span class="nx">run</span> <span class="s">"Mike"</span><span class="p">,</span> <span class="nf">(msg) -&gt;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">msg</span>
+</pre>
+</div>
+
+
+<h2>ThreadPool</h2>
+
+<p>Thread is cool but it takes a while to start up (30ms per Thread - blame node!). ThreadPool will create these threads when your application starts and let them wait for commands. Give ThreadPool a function and some arguments and it will run on one of your Threads instantly.</p>
+
+<div class="highlight">
+<pre><span class="p">{</span><span class="nx">ThreadPool</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">'thread'</span>
+
+<span class="c1"># 4 is the number of threads in the pool</span>
+<span class="c1"># This defaults to the number of CPU cores you have</span>
+<span class="nv">pool = </span><span class="k">new</span> <span class="nx">ThreadPool</span> <span class="mi">4</span>
+
+<span class="nv">task = </span><span class="nf">(name, cb) -&gt;</span> 
+  <span class="nx">cb</span> <span class="s">"Hey </span><span class="si">#{</span><span class="nx">name</span><span class="si">}</span><span class="s">!"</span>
+
+<span class="nx">pool</span><span class="p">.</span><span class="nx">run</span> <span class="nx">task</span><span class="p">,</span> <span class="s">"Tony"</span><span class="p">,</span> <span class="nf">(msg) -&gt;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">msg</span>
+
+<span class="nx">pool</span><span class="p">.</span><span class="nx">run</span> <span class="nx">task</span><span class="p">,</span> <span class="s">"Mike"</span><span class="p">,</span> <span class="nf">(msg) -&gt;</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="nx">msg</span>
+</pre>
+</div>
+
+
+<h2>Examples</h2>
+
+<p>You can view more examples in the <a href="https://github.com/wearefractal/thread/tree/master/examples">example folder.</a></p>
+
+<h2>LICENSE</h2>
+
+<p>(MIT License)</p>
+
+<p>Copyright (c) 2012 Fractal <a href="mailto:contact@wearefractal.com">contact@wearefractal.com</a></p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/wearefractal">wearefractal</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
